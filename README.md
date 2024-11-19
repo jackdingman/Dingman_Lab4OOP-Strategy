@@ -1,4 +1,4 @@
-Patterns that I chose to implement: Observer and xxx
+Patterns that I chose to implement: Observer and Decorator Patterns
 
 The first pattern that I chose to implement was the observer pattern. The purpose of the pattern
 is to enable a one-to-many relationship between objects. When the state of one object changes,
@@ -13,19 +13,28 @@ notifies all registered observers.
 
 To do this, I implemented the following methods:
 
-public void update(ArrayList<DataAggregate> filteredDataPoints) { //implemented observer method
-updateChart(filteredDataPoints);
+    public void update(ArrayList<DataAggregate> filteredDataPoints) { //implemented observer method
+    updateChart(filteredDataPoints);
 
-public void setObservers(Observer observer) {
-observers.add(observer);
-}
-
-public void observerUpdater(){
-    for(Observer observer : observers){
-    observer.update(filteredDataPoints);
+    public void setObservers(Observer observer) {
+    observers.add(observer);
     }
-}
 
+    public void observerUpdater(){
+        for(Observer observer : observers){
+        observer.update(filteredDataPoints);
+        }
+    }
+
+The second pattern I implemented in my code was a decorator pattern. A decorator pattern
+extends new responsibilities to an object without changing their structure. I used the commonly
+used, JScrollPane as a decorator to my Stats JPanel. The scroll pane adds a scrollbar for easier
+navigation on a small window. The component decorated, the JPanel, does not know how the JScrollPane 
+works, which is a fundamental concept of decorator patterns.
+
+    JScrollPane jScrollPanel = new JScrollPane(jPanel); // wrapped the jPanel in the JScrollPane.
+    
+    add(jScrollPanel, BorderLayout.CENTER); //added the jScrollPanel to the jFrame
 
 
 

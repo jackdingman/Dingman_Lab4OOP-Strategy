@@ -19,6 +19,13 @@ public class ChartTable extends JFrame implements Observer {
         setSize(600, 400);
 
         updateChart(sectorInformationAggregate); //method for updating chart data, passing sectorInformationAggregate containing Excel data.
+
+        Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = size.width;
+        int screenHeight = size.height;
+        setSize(screenWidth/3, screenHeight);
+        setLocation((screenWidth/3), screenHeight/10 );
+
         pack();
         setVisible(true);
     }

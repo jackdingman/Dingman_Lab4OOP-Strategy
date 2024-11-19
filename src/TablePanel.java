@@ -59,8 +59,8 @@ public class TablePanel extends JPanel{
                 return false;
             }
         };
-        table = new JTable(model);
 
+        table = new JTable(model);
         JScrollPane scrollPane = new JScrollPane(table);
 
         model.setRowCount(0); // clears the table
@@ -169,11 +169,5 @@ public class TablePanel extends JPanel{
 
     }
 
-        public void updateChartPanel(ArrayList<DataAggregate> sectorInformationAggregate) {
-
-            ChartTable chartTable = new ChartTable(sectorInformationAggregate);
-            chartTable.updateChart(sectorInformationAggregate);
-
-        }
 
 }

@@ -103,10 +103,18 @@ public class InputStream {
         frame.setTitle("Sector Employment Information");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(new BorderLayout());
-        frame.setSize(600, 400);
 
         TablePanel tablePanel = new TablePanel(sectorInformationAggregate);
         frame.getContentPane().add(tablePanel, BorderLayout.CENTER);
+
+        //sizing settings for better output
+        Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = size.width;
+        int screenHeight = size.height;
+        int leftX = 0;
+        frame.setSize(screenWidth/3, screenHeight/4);
+        frame.setLocation(leftX, screenHeight/10 ); //sets location to upper left area of screen
+
         frame.setVisible(true);
 
 
