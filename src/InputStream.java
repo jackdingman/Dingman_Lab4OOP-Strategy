@@ -109,20 +109,6 @@ public class InputStream {
         frame.getContentPane().add(tablePanel, BorderLayout.CENTER);
         frame.setVisible(true);
 
-        /*JFrame frame2 = new JFrame();
-        frame2.setTitle("Sector Employment Information");
-        frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        ChartTable chartTable = new ChartTable(sectorInformationAggregate);
-        frame2.getContentPane().setLayout(new BorderLayout());
-        frame2.getContentPane().add(chartTable.getChartPanel(), BorderLayout.CENTER);
-        frame2.setSize(600, 400);
-        frame2.setVisible(true);*/
-
-
-
-
-
 
 
     }

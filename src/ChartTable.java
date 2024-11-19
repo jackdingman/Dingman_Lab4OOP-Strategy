@@ -12,6 +12,7 @@ public class ChartTable extends JFrame implements Observer {
     ChartPanel chartPanel;
 
     public ChartTable(ArrayList<DataAggregate> sectorInformationAggregate) {
+
         setLayout(new BorderLayout());
         setTitle("Chart");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -44,19 +45,10 @@ public class ChartTable extends JFrame implements Observer {
         if (chartPanel == null){ // checks if the chartPanel has been initialized
             chartPanel = new ChartPanel(barChart); //initialize
             add(chartPanel, BorderLayout.CENTER);
-            //chartPanel.setPreferredSize(new Dimension(800, 600));
-            //frame2.getContentPane().add(chartPanel, BorderLayout.NORTH); //add chartPanel to frame
         } else {
             chartPanel.setChart(barChart);
         }
 
-
-        StatsPanel statsPanel = new StatsPanel(sectorInformationAggregate/*, sectors, averageWeeklyHours, employmentPercentChange, averageDollarsPerHour*/);
-        //frame2.getContentPane().add(statsPanel, BorderLayout.CENTER);
-        add(statsPanel, BorderLayout.SOUTH);
-
-        //frame2.pack();
-        //frame2.setVisible(true);
         revalidate();
         repaint();
     }

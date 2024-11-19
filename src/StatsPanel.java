@@ -5,63 +5,60 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StatsPanel extends JPanel implements Observer {
+public class StatsPanel extends JFrame implements Observer {
 
-    private JLabel totalEmployeesLabel;
-    private JLabel averageJobsLabel;
+    JPanel jPanel;
 
     public StatsPanel(ArrayList<DataAggregate> sectorInformationAggregate) {
 
+        setTitle("Stats Panel"); // title of panel
+        setSize(1000,400); // size of frame
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        jPanel = new JPanel();
+        jPanel.setLayout(new GridLayout(sectorInformationAggregate.size()+1, 4));
+        jPanel.add(new JLabel("Sector"));
+        jPanel.add(new JLabel("Previous Year (2022) Employment (in millions)"));
+        jPanel.add(new JLabel("Total Sector Employee Payout (in millions)"));
+        jPanel.add(new JLabel("Average Dollars per Worker per Week"));
         updateStats(sectorInformationAggregate/*, sectors, averageWeeklyHours, employmentPercentChange, averageDollarsPerHour*/);
-        setLayout(new GridLayout(sectorInformationAggregate.size() + 1, 3));
-        add(totalEmployeesLabel);
-        add(averageJobsLabel);
+        add(jPanel, BorderLayout.CENTER);
+        setVisible(true);
+
 
     }
 
-    public void updateStats(ArrayList<DataAggregate> sectorInformationAggregate) {
-        removeAll();
+    public void updateStats(ArrayList<DataAggregate> filteredDataPoints) {
+        jPanel.removeAll();
 
-        /*Below will be the formulas for the different stats I am including.
-          They are as follows:
-          Previous year (2022) employment number = Employment # - Employment #(%change)
-          Total Employee payout on one hour of work = Employment #(current $ per hour worked)
-          Average $ per worker per week = Average weekly hours (current $ per hour worked)
-         */
-         // layout for panel - 4 columns include Sector, and three different calculated data points
-        //Header labels for data columns
-       /* add(new JLabel("Sector: "));
-        add(new JLabel("Previous Year (2022) Employment Number (in millions): "));
-        add(new JLabel("Total Sector Employee Payout on one hour of work (in millions): "));
-        add(new JLabel("Average Dollars per worker per week: "));
+        jPanel.setLayout(new GridLayout(filteredDataPoints.size()+1, 4));
+        jPanel.add(new JLabel("Sector"));
+        jPanel.add(new JLabel("Previous Year (2022) Employment (in millions)"));
+        jPanel.add(new JLabel("Total Sector Employee Payout (in millions)"));
+        jPanel.add(new JLabel("Average Dollars per Worker per Week"));
 
-        for (DataAggregate data : sectorInformationAggregate) { //iterating through ArrayList, retrieving values for the calculated stats on the StatsPanel.
-
+        for (DataAggregate data : filteredDataPoints) {
             double weeklyHours = data.getAverageWeeklyHours();
             double employmentPercent = data.getEmploymentPercentChange();
             double averageDollars = data.getAverageDollarsPerHour();
             double employmentCount = data.getYearMillions();
             String sectorName = data.getSector();
 
+            // Calculations for stats
             double previousEmploymentCount = employmentCount - (employmentCount * (employmentPercent / 100));
             double oneHourEmployeePayout = employmentCount * averageDollars;
             double averageDollarPerWorkerPerWeek = weeklyHours * averageDollars;
 
-            //need to add action listeners to each button here.
-            add(new JLabel(sectorName));
-            add(new JLabel("" + previousEmploymentCount));
-            add(new JLabel("" + oneHourEmployeePayout));
-            add(new JLabel("" + averageDollarPerWorkerPerWeek));*/
-        double totalEmployees = sectorInformationAggregate.stream()
-                        .mapToDouble(DataAggregate::getYearMillions)
-                                .sum();
-        double averageJobs = totalEmployees / sectorInformationAggregate.size();
+            // Add calculated stats to panel
+            jPanel.add(new JLabel(sectorName));
+            jPanel.add(new JLabel(String.format("%.2f", previousEmploymentCount)));
+            jPanel.add(new JLabel(String.format("%.2f", oneHourEmployeePayout)));
+            jPanel.add(new JLabel(String.format("%.2f", averageDollarPerWorkerPerWeek)));
+        }
 
-        totalEmployeesLabel.setText(String.format("%.2f", totalEmployees));
-        averageJobsLabel.setText(String.format("%.2f", averageJobs));
+        jPanel.revalidate(); // Repaint panel after updating
+        jPanel.repaint();
 
-            revalidate();
-            repaint();
 
         }
 
@@ -71,4 +68,3 @@ public class StatsPanel extends JPanel implements Observer {
     }
 }
 
-//for initial PUSH

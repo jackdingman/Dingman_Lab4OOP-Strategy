@@ -22,7 +22,7 @@ import java.util.Comparator;
 public class TablePanel extends JPanel{
     JTable table; // summarized data points with employment titles
     DefaultTableModel model;
-    StatsPanel statsPanel; // will be used for checkmark logic and filtering on the other panel
+    //StatsPanel statsPanel; // will be used for checkmark logic and filtering on the other panel
     JComboBox<String> dropDown; // for sorting by name or millions of jobs
     JCheckBox manufacturingCheckBox; // for filtering data
     JCheckBox businessCheckBox;// for filtering by business industries
@@ -50,8 +50,9 @@ public class TablePanel extends JPanel{
         StatsPanel statsPanel = new StatsPanel(filteredDataPoints);
         setObservers(statsPanel);
 
+        observerUpdater();
+
         setLayout(new BorderLayout());
-        String[] columns = {"Sector", "Employee count (in millions)", "Basis"};
         model = new DefaultTableModel(new Object[]{"Sector", "Employee Count (in millions)", "Basis"}, 0) {
             @Override
             public boolean isCellEditable(int row, int column) { //overridden method keeps cells in table, containing info, from being edited
@@ -67,7 +68,7 @@ public class TablePanel extends JPanel{
         table.getColumnModel().getColumn(1).setHeaderValue("Employee Count (in millions)");
         table.getColumnModel().getColumn(2).setHeaderValue("Basis");
 
-        for (DataAggregate d : dataPoints) { // sets points from the new data points list, populated from the Data Aggregate array list
+        for (DataAggregate d : filteredDataPoints) { // sets points from the new data points list, populated from the Data Aggregate array list
             model.addRow(new Object[]{d.getSector(),d.getYearMillions(), d.getBasis()});
 
         }
@@ -126,10 +127,8 @@ public class TablePanel extends JPanel{
         add(scrollPane, BorderLayout.CENTER);
         add(filter, BorderLayout.SOUTH);
 
-        //ChartTable chartPanel = new ChartTable(sectorInformationAggregate/*, sectors, averageWeeklyHours, employmentPercentChange, averageDollarsPerHour*/);
-        //chartPanel.setVisible(true);
 
-        //updateChartPanel(sectorInformationAggregate);
+
         observerUpdater();
 
 
